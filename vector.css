@@ -1,0 +1,215 @@
+/* Styles for the toolbar */
+#toolBar {
+    width: 40px;
+    height: auto;
+    padding: 5px 2px 7px 2px;/*top,right,bottom,left*/
+    display: flex;
+    flex-direction: column;
+    border: 0.1px solid #000;
+    background-color: grey;
+    position: absolute; /* Position the toolbar */
+    left: 20px; /* Adjust the left position as needed */
+    top: 10px; /* Adjust the top position as needed */
+    z-index: 2; /* Ensure the toolbar appears above other elements */
+    margin:auto; 
+}
+
+/* Styles for the toolbar icons */
+.icon {
+    cursor: pointer;
+    padding: 5px;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+/* Add hover and active styles for the icons */
+.icon:hover,
+.icon.selected {
+    background-color: #0007;
+}
+
+.icon:active {
+    transform: scale(1.09);
+    box-shadow: none;
+}
+
+.container{
+    position: absolute; /* Position the history */
+    left:1040px; /* Adjust the right position as needed */
+    top: 5px; /* Adjust the top position as needed */
+    z-index: 2; /* Ensure the history appears above other elements */
+}
+
+/* Styles for the history */
+#history-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    position: absolute;
+    top: 400px;
+    left: 20px;
+    background-color: #f0f0f0;
+    z-index: 2;
+}
+
+.title-box {
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    display: flex; /* Use flexbox to align items horizontally */
+    height: 20px;
+    justify-content: space-between; /* Space items apart horizontally */
+    align-items: center; /* Center items vertically */
+}
+
+.history-title {
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+.close-icon {
+    cursor: pointer;
+    width: 10px;
+    height: 10px;
+    margin-right: 10px; /* Add margin for spacing */
+}
+
+
+
+li {
+list-style: none; /* Remove the bullet points */
+padding-left: 0px; /* Optional: Add some indentation for better readability */
+}
+
+/* Styles for the design area */
+#design {
+    position: relative; /* Ensure the design area is positioned relative to the parent */
+    z-index: 1; /* Ensure the design area appears below other elements */
+}
+
+.rectangle {
+    cursor:crosshair;
+}
+
+  #surrounding{
+  fill:none;
+  }
+
+  /* CSS for custom prompts */
+.prompt {
+    width: 275px;
+    height: 700px;
+    display: block;
+    border: 1px solid #000;
+    background-color: #f0f0f0;
+    margin: 0;
+    position: absolute; /*position to transform centers the box */
+    right: 30px; 
+    top:20px;
+    z-index: 2;
+}
+.filterChange {
+    width: 275px;
+    height: 200px;
+    display: block;
+    border: 1px solid #000;
+    background-color: #f0f0f0;
+    margin: 0;
+    position: absolute; /*position to transform centers the box */
+    right: 400px; 
+    top:450px;
+    z-index: 2;
+}
+.centerArrangementPulldown{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Center the text within the container */
+}
+
+.styleChange, .arrangingShapes {
+    padding-left: 20px; /* Adjust the value to your desired indentation */
+}
+
+#customPrompt label,
+.filterChange label{
+    display: inline-block; /* Display label inline with other elements */
+    margin-left: 15px; /* Add margin to create space between label and input */
+    margin-top: 10px; /* Add padding to label */
+}
+
+#customPrompt input[type="number"] {
+    display: inline-block; /* Display input inline with other elements */
+    width: 50px; /* Adjust the width as needed */
+    height:15px; /* Adjust the height as needed */
+    margin-right: 50px; /* Add margin to create space between input and <p> */
+    position: relative;
+    left:40px;
+    margin-top: 10px; /* Add padding to label */
+
+}
+
+#customPrompt p,
+#filterChangeForm p{
+    display: inline-block; /* Display <p> inline with other elements */
+    margin: 0; /* Remove default margin for <p> */
+    margin-top: 10px; /* Add padding to label */
+}
+
+#customPrompt input[type="button"],
+#filterChangeForm input[type="button"]  {
+    display: inline-block; /* Display <p> inline with other elements */
+    margin: 0; /* Remove default margin for <p> */
+    margin-left: 50%; /* Add padding to label */
+    height:30px;
+}
+
+#closeIcon {
+    margin-right:15px; 
+    position: relative;
+    left:10px;
+    height:10px;
+    background-color: darkgray;
+    padding: 2px;
+}
+
+#closeIcon:hover{
+    background-color: #0004;
+}
+
+#closeIcon:active{
+    transform: scale(1.09);
+    box-shadow: none;
+}
+*{
+    font-family: arial;
+}
+
+/* end CSS for custom prompts */
+
+/* old version Styles for the rectangle and circle icons 
+#lineIcon,
+#rectangleIcon,
+#circleIcon,
+#colors{
+    cursor: pointer;
+}
+
+#selectionIcon:hover,
+#lineIcon:hover,
+#rectangleIcon:hover,
+#circleIcon:hover,
+#colors:hover {
+    background-color: #0007;/* colors are declared with 3 or 6 digits. with 3 digits, the 4th digit is tint
+}
+#selectionIcon:active,
+#lineIcon:active,
+#rectangleIcon:active,
+#circleIcon:active,
+#colors:active {
+    transform: scale(1.09);
+    box-shadow: none;
+  }
+  */

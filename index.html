@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="style.css">
+      
+    <style>
+      .container {
+        max-width: 650px;
+      
+        margin: 10px auto;
+      }
+      .col{
+         overflow: auto;
+      }
+      .row{
+        width: 325px;
+        float: left;
+      }
+      #preview{
+        border: 1px solid #ddd;
+        width: 285px;
+        height: 310px;
+      }
+  
+    </style>
+    <link rel="stylesheet" href="vector.css">
+    
+</head>
+<body>
+    <div class="toolBar" id="toolBar">
+        <img id="closeIcon" class="icon selected first-icon" src="toolbarIcon/closeIcon.png" width="10" height="10" style="margin-bottom: 10px;"  /> 
+        <img id="selectionIcon" class="icon" src="toolbarIcon/selection.png" width="30" height="30">
+        <img id="adjustShapeIcon" class="icon" src="toolbarIcon/adjustShape.png" width="30" height="30">
+        <img id="lineIcon" class="icon" src="toolbarIcon/line.png" width="30" height="30">
+        <img id="rectangleIcon" class="icon" src="toolbarIcon/rectangle.png" width="30" height="30">
+        <img id="circleIcon" class="icon" src="toolbarIcon/circle.png" width="30" height="30">
+        <svg id="colors" class="icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20">
+              <rect id="surrounding" width="40" height="40" />
+              <rect id="fill" class="cls-2" x="9.06" y="9.51" width="18.24" height="18.24" style="fill:#000000;"/>
+              <path id="stroke" class="cls-1" d="m21.45,23.49H2.09V4.13h19.36v19.36Zm-18.24-1.12h17.12V5.25H3.21v17.12Z" style="stroke:#f54eff ;"/>
+      </svg>
+    </div>
+    
+    <div class="history-box" id = "history-box" >
+      <div class="title-box" id="history-title-box">
+          <p class="history-title">History</p>
+          <img id="closeIcon" class="close-icon" src="toolbarIcon/closeIcon.png" width="10" height="10" alt="Close">
+      </div>
+      <ul id="history">
+          
+          <!-- History list items will be added here -->
+      </ul>
+  </div>
+  <div class="filterChange" >
+    <div class="title-box" id="filterChange">
+      <p class="filterChange-title">Filter</p>
+      <img id="closeIcon" class="close-icon" src="toolbarIcon/closeIcon.png" width="10" height="10" alt="Close">
+  </div>
+      <form id="filterChangeForm" class="filterChangeForm" action="/action_page.php">  <!--to use form in javascript i had to call the form and not div like i did with toolBar-->
+        <div class="centerArrangementPulldown">
+          <label for="filterArrangement">Type of Filter</label>
+            <select name="filterArrangement" id="filterArrangement">
+              <option value="default">Select Arangement</option>
+              <option value="front">front</option>
+              <option value="back">back</option>
+              <option value="before">before</option>
+              <option value="after">after</option>
+            </select>
+        </div>
+        <label for="addFilter">First Shape</label>
+        <input type="text" id="shapeOneFilter" name="shapeOneFilter" value = "" >
+        <br><br> 
+        <label for="addFilter">Second Shape</label>
+        <input type="text" id="shapeTwoFilter" name="shapeTwoFilter" value = "" >
+        <br><br> 
+        <input type="button" id="addFilterButton" value="Add Filter">
+    </form>  
+  </div>
+
+    <div class="prompt" >
+      <div class="title-box" id="prompt">
+        <p class="resize-title">Resize</p>
+        <img id="closeIcon" class="close-icon" src="toolbarIcon/closeIcon.png" width="10" height="10" alt="Close">
+    </div>
+        <form id="customPrompt" class="customPrompt" action="/action_page.php">  <!--to use form in javascript i had to call the form and not div like i did with toolBar-->
+
+            <p>
+              Mouse pos: <b><span id="mouse-pos"></span></b>
+            </p>
+            <label for="changeWidth">Enter the new width for this shape:</label><br>
+            <input type="number" id="changeWidth" name="changeWidth" disabled>
+            <p>px</p>
+            <label for="changeHeight">Enter the new height for this shape:</label><br>
+            <input type="number" id="changeHeight" name="changeHeight" disabled >
+            <p>px</p>
+            <br><br> 
+            <label id="changeRadiusOrWidthLabel" for="changeRadiusOrWidth">Enter the new radius for this circle:</label><br>
+            <input type="number" id="changeRadiusOrWidth" name="  " disabled >
+            <p>px</p>
+            <br><br> 
+            <p class="styleChange">Stroke Color</p>
+            <input type="text" id="changeStroke" name="changeStroke" value = "" >
+            <br><br> 
+            <p class="styleChange">Stroke Size</p>
+            <input type="number" id="changeStrokeSize" name="changeStrokeSize" value = "" >
+            <br><br> 
+            <p class="styleChange">Fill Color</p>
+            <input type="text" id="changeFill" name="changeFill" value = "" >
+            <br><br> 
+            <input type="button" id="createChangeButton" value="Create Change">
+        </form>  
+        <form id="arrangingShapes" class="arrangingShapes" action="/action_page.php">
+            <p >Arrange Shape:</p>
+            <p style="font-size:12px">First Shape:</p>
+            <input type="text" id="firstShapeChange" name="firstShapeChange" value = "" >
+            <br><br> 
+            <div class="centerArrangementPulldown">
+              <label for="arrangement">Choose your arrangement:</label>
+                <select name="arrangement" id="arrangement">
+                  <option value="default">Select Arangement</option>
+                  <option value="front">front</option>
+                  <option value="back">back</option>
+                  <option value="before">before</option>
+                  <option value="after">after</option>
+                </select>
+            </div>
+            <p style="font-size:12px">Second Shape:</p>
+            <input type="text" id="secondShapeChange" name="changeAfter" value = "" >
+          </form> 
+      
+    </div>
+    <div class="container" id="container">
+        <div class="col">
+          <div class="row">
+      <div id="picker"></div> <!--this is needed for some reason for the colorwheel-->
+    
+           </div> 
+         
+      </div>
+      
+      </div>
+      <svg id="drawing"width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
+        <!-- You can add shapes here if needed -->
+        </svg>
+
+      <svg id="filters"  xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="imageOver">
+            <feComposite in="SourceGraphic" in2="OtherGraphic" operator="over" />
+          </filter>
+          <filter id="imageIn">
+            <feComposite in="SourceGraphic" in2="OtherGraphic" operator="in" />
+          </filter>
+          <filter id="imageOut">
+            <feComposite in="SourceGraphic" in2="OtherGraphic" operator="out" />
+          </filter>
+          <filter id="imageAtop">
+            <feComposite in="SourceGraphic" in2="OtherGraphic" operator="atop" />
+          </filter>
+          <filter id="imageXor">
+            <feComposite in="SourceGraphic" in2="OtherGraphic" operator="xor" />
+          </filter>
+          <filter id="imageArithmetic">
+            <feComposite in="SourceGraphic" in2="OtherGraphic" 
+              operator="arithmetic"
+              k1="0.1"
+              k2="0.2"
+              k3="0.3"
+              k4="0.4" />
+          </filter>
+          <filter id="imageLighter">
+            <feComposite in="SourceGraphic" in2="OtherGraphic" operator="lighter" />
+          </filter>
+          <filter id="inageBlue">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
+          </filter>
+        </defs>
+    </svg>
+
+  
+
+   
+   <script type="text/javascript" src="javascript_files/colorWheel.js"></script>
+   <script src="javascript_files/toolBar.js"></script>
+   <script src="javascript_files/filter.js"></script>
+   <script src="javascript_files/renderShapes.js"></script>
+   <script src="javascript_files/line.js"></script>
+   <script src="javascript_files/rectangle.js"></script>
+   <script src="javascript_files/circle.js"></script>
+   
+
+
+
+</body>
+</html>
