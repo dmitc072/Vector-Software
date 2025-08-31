@@ -1,8 +1,3 @@
-// toolBar.js
-// Keeps your original arrange / move / adjust logic verbatim.
-// Adds robust color handling via window.Selection + window.ColorIO.
-// Fixes a few undefined identifiers (changeWidth/Height/RadiusOrWidth, is*IconSelected flags).
-
 let radius; // Variable to store circle radius
 let cx, cy; // Variables to store circle and ellipse centers
 let rx, ry; // Variables to store ellipse radii
@@ -33,16 +28,11 @@ let colorWheelContainer = document.querySelector("#container"); //for colorWheel
 const inputWidth = document.querySelector("#changeWidth"); //from customPrompt
 const inputHeight = document.querySelector("#changeHeight"); //from customPrompt
 const inputRadiusOrWidth = document.querySelector("#changeRadiusOrWidth"); //from customPrompt
-const radiusOrWidthLabel = document.querySelector("#changeRadiusOrWidthLabel");
+const radiusOrWidthLabel = document.querySelector("#changeRadiusOrWidthLabel"); //from customPrompt
 const firstShapeChange = document.querySelector("#firstShapeChange");
 const secondShapeChange = document.querySelector("#secondShapeChange");
 //const svg = document.querySelector('#design');
 const svg = document.querySelector("#drawing");
-
-// Alias the inputs to the names you use later in code (prevents ReferenceError)
-const changeWidth = inputWidth;
-const changeHeight = inputHeight;
-const changeRadiusOrWidth = inputRadiusOrWidth;
 
 let strokeColor = document.querySelector("#stroke");
 let fillColor = document.querySelector("#fill"); //call the color first
@@ -70,8 +60,7 @@ let transformObjectY;
 let isButtonClicked = false;
 const canvasContainer = document.querySelector(".canvas-container"); //from colorWheel.js
 // Select the <input> element within the .canvas-container
-let inputElement =
-  canvasContainer?.querySelector('input[type="color"]') || null; // robust selector
+let inputElement = canvasContainer.querySelector("input"); //this is being called from the color selector
 let changeStroke = document.querySelector("#changeStroke");
 let changeStrokeSize = document.querySelector("#changeStrokeSize");
 let changeFill = document.querySelector("#changeFill");
@@ -85,43 +74,6 @@ let previousClickedForStroke = "null";
 let previousClickedForFill = "null";
 let previousClickedShapeId = "null";
 let currentSelectedShape = "null";
-
-// Declare icon selected flags that were referenced but never defined
-let islineIconSelected = false;
-let isRectIconSelected = false;
-let isCircleIconSelected = false;
-
-// NEW: Color action buttons (make sure these exist in your HTML; listeners are null-safe)
-const fillButtonElement = document.querySelector("#fillButtonId");
-const strokeButtonElement = document.querySelector("#strokeButtonId");
-
-// Helper to fetch current hex from the ColorPicker input
-function getCurrentHex() {
-  return inputElement?.value || "#000000";
-}
-
-// Use Selection + ColorIO for reliable SVG coloring & swatch sync
-fillButtonElement?.addEventListener("click", () => {
-  const hex = getCurrentHex();
-  // Apply to current selection (if any); otherwise update swatch only
-  try {
-    window.Selection?.applyColor(hex, { mode: "fill" });
-  } catch {}
-  try {
-    window.ColorIO?.apply({ fill: hex });
-  } catch {}
-});
-
-strokeButtonElement?.addEventListener("click", () => {
-  const hex = getCurrentHex();
-  try {
-    window.Selection?.applyColor(hex, { mode: "stroke" });
-  } catch {}
-  try {
-    window.ColorIO?.apply({ stroke: hex });
-  } catch {}
-});
-
 // lineLength = Math.sqrt(Math.abs(shapeData.y2 - shapeData.y1) + Math.abs(shapeData.x2 - shapeData.x1)) //a^2+b^2 = c^2 or a = |y2-y1| ; b = |x2-x1|
 
 const mousePosText = document.getElementById("mouse-pos");
@@ -129,7 +81,7 @@ let mousePos = { x: undefined, y: undefined };
 
 window.addEventListener("mousemove", (event) => {
   mousePos = { x: event.clientX, y: event.clientY };
-  if (mousePosText) mousePosText.textContent = `(${mousePos.x}, ${mousePos.y})`;
+  mousePosText.textContent = `(${mousePos.x}, ${mousePos.y})`;
 });
 
 //update the dimensions dialog / Resize dialogbox
@@ -143,7 +95,7 @@ document.addEventListener("click", () => {
         changeHeight.value = "";
         inputWidth.setAttribute("disabled", true);
         inputHeight.setAttribute("disabled", true);
-        changeRadiusOrWidth.removeAttribute("disabled");
+        changeRadiusOrWidth.setAttribute("disabled", false);
         changeRadiusOrWidth.value =
           Math.abs(shapeData.y2 - shapeData.y1) +
           Math.abs(shapeData.x2 - shapeData.x1);
@@ -161,7 +113,7 @@ document.addEventListener("click", () => {
         changeHeight.value = Math.abs(shapeData.ry);
         inputWidth.removeAttribute("disabled", false);
         inputHeight.removeAttribute("disabled", false);
-        changeRadiusOrWidth.removeAttribute("disabled");
+        changeRadiusOrWidth.setAttribute("disabled", false);
         changeRadiusOrWidth.value = "";
       }
       if (shapeData.type === "circle") {
@@ -171,7 +123,7 @@ document.addEventListener("click", () => {
         changeHeight.value = "";
         inputWidth.setAttribute("disabled", true);
         inputHeight.setAttribute("disabled", true);
-        changeRadiusOrWidth.removeAttribute("disabled");
+        changeRadiusOrWidth.removeAttribute("disabled", false);
         changeRadiusOrWidth.value = shapeData.r;
       }
       changeFill.value = shapeData.fill;
@@ -370,7 +322,7 @@ function selectIconAndSetupDrawing(iconElement) {
 
   renderShapes();
 
-  console.log("Input value:", inputElement?.value);
+  console.log("Input value:", inputElement.value);
   // Get the ID of the selected icon
   const selectedIconId = iconElement.id; //how the switch starts
 
@@ -420,7 +372,7 @@ selectionIcon.addEventListener("click", function () {
 
 lineIcon.addEventListener("click", function () {
   selectIconAndSetupDrawing(lineIcon);
-  console.log("Line icon selected:", islineIconSelected);
+  console.log("Line icon selected:", isLineIconSelected);
 });
 
 rectangleIcon.addEventListener("click", function () {
@@ -763,45 +715,52 @@ function renderHistory() {
   });
 }
 
-//change stroke and fill (kept original logic, but prefer Selection/ColorIO above)
-// You can keep these if needed for sync with form fields.
-// The explicit buttons above are the main way to apply colors now.
+//change stroke and fill
+const fillButtonElement = document.querySelector("#fillButtonId");
+const strokeButtonElement = document.querySelector("#strokeButtonId");
 
-const fillButtonElementLegacy = document.querySelector("#fillButtonId");
-const strokeButtonElementLegacy = document.querySelector("#strokeButtonId");
-
-fillButtonElementLegacy?.addEventListener("click", () => {
-  const newFillColor = inputElement?.value || "#000000"; // Get the new fill color from the input to the toolbar fill color
+fillButtonElement.addEventListener("click", () => {
+  const newFillColor = inputElement.value; // Get the new fill color from the input to the toolbar fill color
 
   fillColor.style.fill = newFillColor; // Update the fill color of the input element
   fill = newFillColor; // Update the fill variable
 
   shapes.forEach((shapeData) => {
-    if (currentSelectedShape?.id && currentSelectedShape.id === shapeData.id) {
+    //var previousClickedShapeIdForFill = shapeData.id;
+    if (
+      currentSelectedShape.id !== null &&
+      currentSelectedShape.id === shapeData.id
+    ) {
+      //in order to get this to work, I have to make the click previousClicked = shapeData in moveShape() first so it can go the the the loop to  match.
       const previousShapeElementForFill = document.getElementById(
         currentSelectedShape.id
       );
-      previousShapeElementForFill.setAttribute("fill", fill);
+      previousShapeElementForFill.setAttribute("fill", fill); //this actually integrate the stroke into the HTML element
       shapeData.fill = fill;
-      if (changeFill) changeFill.value = fill;
+      changeFill.value = fill;
     }
   });
 });
 
-strokeButtonElementLegacy?.addEventListener("click", () => {
-  const newStrokeColor = inputElement?.value || "#000000"; // Get the new stroke color from the input
+strokeButtonElement.addEventListener("click", () => {
+  const newStrokeColor = inputElement.value; // Get the new fill color from the input
 
-  strokeColor.style.stroke = newStrokeColor; // swatch
-  stroke = newStrokeColor;
+  //the two lines call basically the same but need it
+  strokeColor.style.stroke = newStrokeColor; // Update the stroke color of the input element to the toolbar stroke color
+  stroke = newStrokeColor; // Update the stroke variable
 
   shapes.forEach((shapeData) => {
-    if (currentSelectedShape?.id && currentSelectedShape.id === shapeData.id) {
+    if (
+      currentSelectedShape.id !== null &&
+      currentSelectedShape.id === shapeData.id
+    ) {
+      //in order to get this to work, I have to make the click previousClicked = shapeData in moveShape() first so it can go the the the loop to  match.
       const previousShapeElementForStroke = document.getElementById(
         currentSelectedShape.id
       );
-      previousShapeElementForStroke.setAttribute("stroke", stroke);
+      previousShapeElementForStroke.setAttribute("stroke", stroke); //this actually integrate the stroke into the HTML element
       shapeData.stroke = stroke;
-      if (changeStroke) changeStroke.value = stroke;
+      changeStroke.value = stroke; //this updates the stroke value
     }
   });
 });
@@ -817,6 +776,3 @@ function removeDrawingListeners() {
   svg.removeEventListener("mousemove", onLineMouseMove);
   svg.removeEventListener("mouseup", onLineMouseUp);
 }
-
-// NOTE: Your drawing handlers (setupDrawingLine/Rect/Circle, on* handlers, renderShapes, etc.)
-// are assumed to be defined elsewhere in this file or imported. This file preserves their use.
