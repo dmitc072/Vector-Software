@@ -28,3 +28,7 @@ It’s built with **vanilla JavaScript, HTML, and CSS**.
 git clone https://github.com/dmitc072/Vector-Software.git
 cd Vector-Software
 open index.html
+```
+
+## 📄 License
+This project is licensed under the [MIT License](https://github.com/dmitc072/Vector-Software/blob/main/LICENSE).
