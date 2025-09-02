@@ -1,17 +1,36 @@
-# Vector Software (Interactive Graphics Tool)
+---
 
-Browser-based vector tool for drawing shapes, transforming paths, and exporting.
+# 📌 Repo 2: Vector Software
 
-## Demo
-- Live (GitHub Pages): https://<your-username>.github.io/Vector-Software
-- Video/GIF: <link>
+```markdown
+# Vector Software 🎨
 
-## Features
-- Draw/Select/Transform
-- Layers, snap-to-grid
-- Export PNG/SVG
+## 📌 Overview
+Vector Software is a **web-based graphics tool** that lets users create and manipulate shapes, lines, and text directly in the browser.  
+It’s built with **vanilla JavaScript, HTML, and CSS**.
 
-## Getting Started
-Open `index.html` directly or serve locally:
+---
+
+## ⚙️ Tech Stack
+- **Frontend:** HTML5, CSS3, JavaScript (ES6+)
+
+---
+
+## 🚀 Features
+- ✏️ Draw lines, shapes, and text  
+- 🎨 Change colors and styles  
+- 💾 Save/export drawings  
+- ⚡ Responsive design  
+
+---
+
+## 🖥️ Live Demo
+🔗 [Vector Software Demo](https://dmitc072.github.io/Vector-Software/)  
+
+---
+
+## 📂 Installation & Setup
 ```bash
-npx serve .
+git clone https://github.com/dmitc072/Vector-Software.git
+cd Vector-Software
+open index.html
