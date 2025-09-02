@@ -1,7 +1,3 @@
-
-# 📌 Repo 2: Vector Software
-
-```markdown
 # Vector Software 🎨
 
 ## 📌 Overview
