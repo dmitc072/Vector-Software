@@ -14,7 +14,6 @@ It’s built with **vanilla JavaScript, HTML, and CSS**.
 ## 🚀 Features
 - ✏️ Draw lines, shapes, and text  
 - 🎨 Change colors and styles  
-- 💾 Save/export drawings  
 - ⚡ Responsive design  
 
 ---
